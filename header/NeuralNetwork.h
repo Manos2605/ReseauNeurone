@@ -3,7 +3,7 @@
 #include <ctime>
 
 // Structure représentant un neurone
-struct Neuron {
+struct Neurone {
     float* poids;   // Tableau des poids
     float biais;    // Biais du neurone
     float sortie;   // Sortie du neurone
@@ -12,14 +12,25 @@ struct Neuron {
 // Structure représentant une couche
 struct Couche {
     int nombre_neurones;  // Nombre de neurones d'une couche'
-    Neuron* neurones;     // Tableau de neurones
+    Neurone* neurones;     // Tableau de neurones
 };
+
+// Stucture représentant un reseau de neurone
+struct ReseauDeNeurones{
+    int nombre_couches;
+    Couche *couches;
+};
+
 
 #ifdef NEURALNETWORK_H
 #define NEURALNETWORK_H
 
 float genererAlea();
-void initialiserCouche(Couche& couche, int nombre_neurones, int nombre_poids_par_neurone);
+// Couche
 void libererCouche(Couche& couche, int nombre_poids_par_neurone);
+void initialiserNeurone(Neurone& neurone, int nombreConnexions);
+void initialiserCouche(Couche& couche, int nombre_neurones, int nombre_poids_par_neurone);
+// réseau de neurones
+void initialiserReseau(ReseauDeNeurones& reseau, const int* nombreNeuronesParCouche, int nombreCouches);
 
 #endif
