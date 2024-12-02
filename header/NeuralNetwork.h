@@ -7,6 +7,7 @@ struct Neurone {
     float* poids;   // Tableau des poids
     float biais;    // Biais du neurone
     float sortie;   // Sortie du neurone
+    float delta;    // L'erreur calculée lors de la rétropropagation
 };
 
 // Structure représentant une couche
@@ -33,6 +34,6 @@ void initialiserCouche(Couche& couche, int nombre_neurones, int nombre_poids_par
 // réseau de neurones
 void initialiserReseau(ReseauDeNeurones& reseau, const int* nombreNeuronesParCouche, int nombreCouches);
 void afficherReseau(const ReseauDeNeurones& reseau);
-void libererReseau(ReseauDeNeurones& reseau);
+void libererReseau(ReseauDeNeurones& reseau);   
 
 #endif
