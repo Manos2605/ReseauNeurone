@@ -34,6 +34,33 @@ void initialiserNeurone(Neurone& neurone, int nombreConnexions) {
     neurone.sortie = 0.0f;
 }
 
+// Fonction d'initialisation d'un réseau de neurones
+void initialiserReseau(ReseauDeNeurones& reseau, const int* nombreNeuronesParCouche, int nombreCouches) {
+    reseau.nombre_couches = nombreCouches;
+    reseau.couches = new Couche[nombreCouches];
+    for (int i = 0; i < nombreCouches; i++) {
+        int connexionsParNeurone = (i == 0) ? 0 : nombreNeuronesParCouche[i - 1];
+        initialiserCouche(reseau.couches[i], nombreNeuronesParCouche[i], connexionsParNeurone);
+    }
+}
+
+// Fonction pour afficher les poids et les biais
+void afficherReseau(const ReseauDeNeurones& reseau) {
+    for (int i = 0; i < reseau.nombre_couches; i++) {
+        std::cout << "Couche " << i + 1 << " :\n";
+        for (int j = 0; j < reseau.couches[i].nombre_neurones; j++) {
+            std::cout << "  Neurone " << j + 1 << " :\n";
+            std::cout << "    Biais : " << reseau.couches[i].neurones[j].biais << "\n";
+            std::cout << "    Poids : ";
+            for (int k = 0; k < (i == 0 ? 0 : reseau.couches[i - 1].nombre_neurones); k++) {
+                std::cout << reseau.couches[i].neurones[j].poids[k] << " ";
+            }
+            std::cout << "\n";
+        }
+    }
+}
+
+
 // fonction pour libérer la mémoire d'une couche
 void libererCouche(Couche& couche, int nombre_poids_par_neurone) {
     for (int i = 0; i < couche.nombre_neurones; ++i) {
@@ -46,12 +73,13 @@ void libererCouche(Couche& couche, int nombre_poids_par_neurone) {
     couche.nombre_neurones = 0;
 }
 
-// Fonction d'initialisation d'un réseau de neurones
-void initialiserReseau(ReseauDeNeurones& reseau, const int* nombreNeuronesParCouche, int nombreCouches) {
-    reseau.nombre_couches = nombreCouches;
-    reseau.couches = new Couche[nombreCouches];
-    for (int i = 0; i < nombreCouches; i++) {
-        int connexionsParNeurone = (i == 0) ? 0 : nombreNeuronesParCouche[i - 1];
-        initialiserCouche(reseau.couches[i], nombreNeuronesParCouche[i], connexionsParNeurone);
+// fonction pour libérer la mémoire du reseau
+void libererReseau(ReseauDeNeurones& reseau) {
+    for (int i = 0; i < reseau.nombre_couches; i++) {
+        for (int j = 0; j < reseau.couches[i].nombre_neurones; j++) {
+            delete[] reseau.couches[i].neurones[j].poids; // Libère les poids de chaque neurone
+        }
+        delete[] reseau.couches[i].neurones; // Libère les neurones de chaque couche
     }
+    delete[] reseau.couches; // Libère les couches du réseau
 }
