@@ -60,6 +60,10 @@ int main() {
                   << " (Attendue: " << sortiesAttendues[i] << ")\n";
     }
 
+    // Sauvegarde 
+    sauvegarderPoidsEtBiais(reseau, "poids_et_biais.txt");
+
+
     // Libérer la mémoire
     libererReseau(reseau);
 

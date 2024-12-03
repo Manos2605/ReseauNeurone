@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include "Struct.h"
 
 #ifndef NEURALNETWORK_H
@@ -14,6 +15,8 @@ void initialiserCouche(Couche& couche, int nombre_neurones, int nombre_poids_par
 // réseau de neurones
 void initialiserReseau(ReseauDeNeurones& reseau, const int* nombreNeuronesParCouche, int nombreCouches);
 void afficherReseau(const ReseauDeNeurones& reseau);
-void libererReseau(ReseauDeNeurones& reseau);   
+void libererReseau(ReseauDeNeurones& reseau);  
+// Sauvegarde
+void sauvegarderPoidsEtBiais(const ReseauDeNeurones& reseau, const std::string& nomFichier);
 
 #endif
