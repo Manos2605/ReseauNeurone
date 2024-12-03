@@ -42,10 +42,13 @@ int main() {
             retropropagation(&reseau, &sortiesAttendues[i], LEARNING_RATE);
         }
 
+        // erreur moyenne pour epoch
+        std::cout << "Epoch " << epoch << ", Erreur Totale: " << erreurTotale / 4 << std::endl;
+
         // erreur moyenne pour chaque époque
-        if (epoch % 1000 == 0) {
+        /* if (epoch % 100 == 0) {
             std::cout << "Epoch " << epoch << ", Erreur Totale: " << erreurTotale / 4 << std::endl;
-        }
+        } */
     }
 
     // Test du réseau
