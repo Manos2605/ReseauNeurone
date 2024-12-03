@@ -88,6 +88,7 @@ void libererReseau(ReseauDeNeurones& reseau) {
 void sauvegarderPoidsEtBiais(const ReseauDeNeurones& reseau, const std::string& nomFichier) {
     std::ofstream fichier(nomFichier);
 
+    // Vérifier si le fichier existe ou pas
     if (!fichier.is_open()) {
         std::cerr << "Erreur : Impossible d'ouvrir le fichier " << nomFichier << " pour la sauvegarde." << std::endl;
         return;
@@ -98,16 +99,16 @@ void sauvegarderPoidsEtBiais(const ReseauDeNeurones& reseau, const std::string& 
         for (int j = 0; j < couche.nombre_neurones; ++j) {
             const Neurone& neurone = couche.neurones[j];
 
-            // Écriture des poids
+            // Poids
             for (int k = 0; k < (i == 0 ? 0 : reseau.couches[i - 1].nombre_neurones); ++k) {
                 fichier << neurone.poids[k] << " ";
             }
 
-            // Écriture du biais
+            // Biais
             fichier << neurone.biais << std::endl;
         }
     }
 
     fichier.close();
-    std::cout << "Les poids et biais ont été sauvegardés dans le fichier : " << nomFichier << std::endl;
+    std::cout << "Les poids et biais ont été sauvegardés sur : " << nomFichier << std::endl;
 }
